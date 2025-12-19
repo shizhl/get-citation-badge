@@ -1,12 +1,19 @@
-from scholarly import scholarly
+import requests
 import json
+import os
 
-USER_ID = "4UlXbpQAAAAJ"   # 换成你的 Scholar ID
+API_KEY = os.environ["SERPAPI_KEY"]
+AUTHOR_ID = "4UlXbpQAAAAJ"  # 你的 Scholar ID
 
-author = scholarly.search_author_id(USER_ID)
-author = scholarly.fill(author)
+url = "https://serpapi.com/search.json"
+params = {
+    "engine": "google_scholar_author",
+    "author_id": AUTHOR_ID,
+    "api_key": '23cf3d2e26cb084b30d44b77776a76970a5c8fedadf6750a337a3c2be747075c'
+}
 
-citations = author["citedby"]
+data = requests.get(url, params=params).json()
+citations = data["cited_by"]["value"]
 
 with open("citations.json", "w") as f:
     json.dump({"citations": citations}, f)
