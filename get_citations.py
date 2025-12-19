@@ -13,7 +13,7 @@ params = {
 }
 
 data = requests.get(url, params=params).json()
-citations = data["cited_by"]["value"]
+citations = data["cited_by"]['table'][0]["citations"]['all']
 
 with open("citations.json", "w") as f:
     json.dump({"citations": citations}, f)
