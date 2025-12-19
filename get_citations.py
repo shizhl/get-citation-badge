@@ -2,7 +2,7 @@ import requests
 import json
 import os
 
-API_KEY = os.environ["SERPAPI_KEY"]
+
 AUTHOR_ID = "4UlXbpQAAAAJ"  # 你的 Scholar ID
 
 url = "https://serpapi.com/search.json"
