@@ -9,7 +9,7 @@ url = "https://serpapi.com/search.json"
 params = {
     "engine": "google_scholar_author",
     "author_id": AUTHOR_ID,
-    "api_key": '23cf3d2e26cb084b30d44b77776a76970a5c8fedadf6750a337a3c2be747075c'
+    "api_key": os.environ["SERPAPI_KEY"] # '23cf3d2e26cb084b30d44b77776a76970a5c8fedadf6750a337a3c2be747075c'
 }
 
 data = requests.get(url, params=params).json()
