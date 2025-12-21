@@ -2,7 +2,7 @@ name: Update Google Scholar Citations
 
 on:
   schedule:
-    - cron: "0 4 * * *"
+    - cron: "0 4 * * *"   # 每天 UTC 04:00
   workflow_dispatch:
 
 jobs:
@@ -10,14 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
-      - run: pip install scholarly
-      - run: python get_citations.py
+      - name: Install dependencies
+        run: pip install requests
 
-      - run: |
+      - name: Update citations
+        run: python get_citations.py
+        env:
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+
+      - name: Commit and push if changed
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add citations.json
